@@ -28,7 +28,7 @@ Podpowiedź sterowania widać też na ekranie. Kursor jest zamknięty w oknie gr
 
 ## Strojenie kamery
 
-Prędkości, limity zoomu i pochylenia oraz wygładzanie ustawia się w DataAssecie `/Game/Systems/IsometricCameraSystem/Data/DA_IsometricCamera_Config`. Zmiany działają od razu, także w trakcie gry w edytorze. Wyjątkiem są wartości startowe (`Default…`), które kamera czyta tylko przy starcie.
+Prędkości, limity zoomu i pochylenia oraz wygładzanie ustawia się w DataAssecie `/Game/IsoCamera/Systems/IsometricCameraSystem/Data/DA_IsometricCamera_Config`. Zmiany działają od razu, także w trakcie gry w edytorze. Wyjątkiem są wartości startowe (`Default…`), które kamera czyta tylko przy starcie.
 
 ## Struktura
 
@@ -42,7 +42,7 @@ Kod jest w module gry `IsoCamera`, w `Source/IsoCamera/`. Nagłówki leżą w `P
 
 Kamera i input nie zależą od siebie w kodzie. Łączy je konfiguracja `BP_PlayerController`, którego komponent inputu dodaje na starcie mapping context kamery.
 
-Assety w `Content/`:
+Assety w `Content/IsoCamera/`:
 - `Systems/IsometricCameraSystem/` — pawn `BP_IsometricCamera`, DataAsset strojenia, akcje i mapping context kamery
 - `Core/` — GameMode, kontroler gracza i HUD
 - `Levels/LVL_Showcase` — level prezentacyjny

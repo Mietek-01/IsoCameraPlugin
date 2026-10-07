@@ -29,10 +29,10 @@ Kontroler gracza prezentacji kamery. Składa input gracza z komponentu InputSyst
 
 | Asset | Ustawienia |
 |-------|------------|
-| `/Game/Core/Player/BP_PlayerController` | Podklasa `AICPlayerController`. `HUDWidgetClass` = `WBP_HUD`. Komponent `InputController`: start w trybie UI (`bIsGameModeOnStart` = false), `DefaultUIModeInputMaps` = `IMC_IsometricCamera_Default`, bez contextów trybu gry. |
-| `/Game/Core/Player/UI/WBP_HUD` | Sam layout, bez logiki: podpowiedź sterowania (`T_CameraControlsHint`, 240×360) w prawym dolnym rogu. Obrazek nie przyjmuje myszy (`HitTestInvisible`). |
+| `/Game/IsoCamera/Core/Player/BP_PlayerController` | Podklasa `AICPlayerController`. `HUDWidgetClass` = `WBP_HUD`. Komponent `InputController`: start w trybie UI (`bIsGameModeOnStart` = false), `DefaultUIModeInputMaps` = `IMC_IsometricCamera_Default`, bez contextów trybu gry. |
+| `/Game/IsoCamera/Core/Player/UI/WBP_HUD` | Sam layout, bez logiki: podpowiedź sterowania (`T_CameraControlsHint`, 240×360) w prawym dolnym rogu. Obrazek nie przyjmuje myszy (`HitTestInvisible`). |
 
-Kontrolera używa `/Game/Core/Game/BP_GameMode` — domyślny GameMode projektu (`GlobalDefaultGameMode` w `Config/DefaultEngine.ini`), który spawnuje pawna `BP_IsometricCamera`.
+Kontrolera używa `/Game/IsoCamera/Core/Game/BP_GameMode` — domyślny GameMode projektu (`GlobalDefaultGameMode` w `Config/DefaultEngine.ini`), który spawnuje pawna `BP_IsometricCamera`.
 
 ## Pliki
 

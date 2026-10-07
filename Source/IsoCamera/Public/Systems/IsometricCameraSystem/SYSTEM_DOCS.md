@@ -70,9 +70,9 @@ System nie dodaje mapping contextu i nie ustawia trybu inputu ani kursora. Wyją
 
 ### Konfiguracja
 
-- `/Game/Systems/IsometricCameraSystem/Data/DA_IsometricCamera_Config` (`UICIsometricCameraDataAsset`) — wszystkie prędkości, limity i wygładzanie, w kategoriach `Movement`, `Zoom`, `Rotation`, `Tilt`. Komponent czyta DA przy każdym inpucie i ticku, więc zmiana w trakcie gry działa od razu. Wyjątek: `DefaultZoomDistance` i `DefaultPitchAngle` ustawiają kamerę tylko w `BeginPlay`.
-- `/Game/Systems/IsometricCameraSystem/BP_IsometricCamera` — podklasa `AICIsometricCameraPawn`. Na komponencie `IsometricCamera` ma przypięte `Config` i sześć akcji.
-- Akcje i mapping context leżą w `/Game/Systems/IsometricCameraSystem/Input/`. Mapowania w `IMC_IsometricCamera_Default`:
+- `/Game/IsoCamera/Systems/IsometricCameraSystem/Data/DA_IsometricCamera_Config` (`UICIsometricCameraDataAsset`) — wszystkie prędkości, limity i wygładzanie, w kategoriach `Movement`, `Zoom`, `Rotation`, `Tilt`. Komponent czyta DA przy każdym inpucie i ticku, więc zmiana w trakcie gry działa od razu. Wyjątek: `DefaultZoomDistance` i `DefaultPitchAngle` ustawiają kamerę tylko w `BeginPlay`.
+- `/Game/IsoCamera/Systems/IsometricCameraSystem/BP_IsometricCamera` — podklasa `AICIsometricCameraPawn`. Na komponencie `IsometricCamera` ma przypięte `Config` i sześć akcji.
+- Akcje i mapping context leżą w `/Game/IsoCamera/Systems/IsometricCameraSystem/Input/`. Mapowania w `IMC_IsometricCamera_Default`:
 
 | Klawisz | Akcja | Typ wartości | Modyfikatory |
 |---------|-------|--------------|--------------|
