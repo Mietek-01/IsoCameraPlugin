@@ -1,6 +1,6 @@
 # IsoCamera
 
-Kamera izometryczna dla Unreal Engine 5 z gotowym inputem i konfiguracją. Po uruchomieniu levelu można od razu sterować kamerą.
+Kamera izometryczna dla Unreal Engine 5.8.3 z gotowym inputem i konfiguracją. Po uruchomieniu levelu można od razu sterować kamerą.
 
 ## Wymagania
 
