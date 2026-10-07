@@ -16,7 +16,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FInputMapsChangedDelegate,
 /**
  * Manages the input mapping contexts and the input mode of its player controller.
  * Game mode hides the cursor and gives all input to the game; UI mode shows the cursor and keeps it in the viewport.
- * Leaving UI mode restores the mapping contexts that were active before the last change.
+ * SetInputMaps changes the contexts without changing the mode; leaving UI mode restores the contexts active when it was entered.
  */
 UCLASS(ClassGroup = (IC), meta = (BlueprintSpawnableComponent))
 class ISOCAMERA_API UICInputControllerComponent : public UActorComponent
@@ -51,12 +51,20 @@ protected:
 	TArray<TObjectPtr<UInputMappingContext>> DefaultUIModeInputMaps;
 
 private:
+	// Switched only by EnableUIMode and DisableUIMode; the active contexts do not affect it
+	UPROPERTY(VisibleInstanceOnly, Transient, Category = "IC|InputController|Runtime Data")
+	bool bIsUIMode = false;
+
 	UPROPERTY(VisibleInstanceOnly, Transient, Category = "IC|InputController|Runtime Data")
 	TArray<TObjectPtr<UInputMappingContext>> CurrentInputMaps;
 
-	// Mapping contexts active before the last change; DisableUIMode restores them
+	// Mapping contexts active before the last change; InputMapsChanged reports them
 	UPROPERTY(VisibleInstanceOnly, Transient, Category = "IC|InputController|Runtime Data")
 	TArray<TObjectPtr<UInputMappingContext>> PreviousInputMaps;
+
+	// Mapping contexts active when UI mode was entered from game mode; DisableUIMode restores them
+	UPROPERTY(VisibleInstanceOnly, Transient, Category = "IC|InputController|Runtime Data")
+	TArray<TObjectPtr<UInputMappingContext>> InputMapsBeforeUIMode;
 
 	// ===== UFUNCTION Methods =====
 public:
@@ -64,25 +72,28 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "IC|InputController|Methods")
 	void SetInputMaps(const TArray<UInputMappingContext*>& pNewMaps, bool pWithClear = true, bool pWithFlush = false);
 
+	// Saves the active contexts, shows the cursor and applies the default UI mode contexts; does nothing in UI mode
 	UFUNCTION(BlueprintCallable, Category = "IC|InputController|Methods")
 	void EnableUIMode();
 
+	// Hides the cursor and restores the contexts saved when UI mode was entered; does nothing in game mode
 	UFUNCTION(BlueprintCallable, Category = "IC|InputController|Methods")
 	void DisableUIMode();
 
-	// True when every default UI mode context is active
+	// True between EnableUIMode and DisableUIMode, whatever mapping contexts are active
 	UFUNCTION(BlueprintPure, Category = "IC|InputController|Getters")
 	bool IsUIMode() const;
 
-	// ===== Internal Methods =====
-public:
-	const TArray<TObjectPtr<UInputMappingContext>>& GetCurrentInputMaps() const { return CurrentInputMaps; }
-	const TArray<TObjectPtr<UInputMappingContext>>& GetPreviousInputMaps() const { return PreviousInputMaps; }
+	UFUNCTION(BlueprintPure, Category = "IC|InputController|Getters")
+	TArray<UInputMappingContext*> GetCurrentInputMaps() const;
 
+	// Mapping contexts active before the last change
+	UFUNCTION(BlueprintPure, Category = "IC|InputController|Getters")
+	TArray<UInputMappingContext*> GetPreviousInputMaps() const;
+
+	// ===== Internal Methods =====
 private:
 	void InitializeInputMaps();
-	// pNewMaps is taken by value: callers pass this component's own arrays, which this method rewrites
-	void ApplyInputMaps(TArray<TObjectPtr<UInputMappingContext>> pNewMaps, bool pWithClear, bool pWithFlush);
 	// The owner as a player controller; warns when the component sits on anything else
 	APlayerController* GetOwnerPlayerController() const;
 };
